@@ -53,13 +53,14 @@ describe(method1, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.testBlocks.blocks, function(block){
-                _.each(block.uncleHeaders, function(uncle, index){
-                    it('should return an uncle with the proper structure', function(done){
-                        asyncTest(host, done, method1, ['0x'+ block.blockHeader.hash, Helpers.fromDecimal(index)], uncle);
-                    });
-                });
-            });
+            // we don't have uncles
+            // _.each(config.testBlocks.blocks, function(block){
+            //     _.each(block.uncleHeaders, function(uncle, index){
+            //         it('should return an uncle with the proper structure', function(done){
+            //             asyncTest(host, done, method1, ['0x'+ block.blockHeader.hash, Helpers.fromDecimal(index)], uncle);
+            //         });
+            //     });
+            // });
 
             it('should return null when no uncle was found', function(done){
                 asyncTest(host, done, method1, ['0x878a132155f53adb7c993ded4cfb687977397d63d873fcdbeb06c18cac907a5c', '0xb'], null);
@@ -81,13 +82,14 @@ describe(method2, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.testBlocks.blocks, function(block){
-                _.each(block.uncleHeaders, function(uncle, index){
-                    it('should return an uncle with the proper structure', function(done){
-                        asyncTest(host, done, method2, [Helpers.fromDecimal(block.blockHeader.number), Helpers.fromDecimal(index)], uncle);
-                    });
-                });
-            });
+            // we don't have uncles
+            // _.each(config.testBlocks.blocks, function(block){
+            //     _.each(block.uncleHeaders, function(uncle, index){
+            //         it('should return an uncle with the proper structure', function(done){
+            //             asyncTest(host, done, method2, [Helpers.fromDecimal(block.blockHeader.number), Helpers.fromDecimal(index)], uncle);
+            //         });
+            //     });
+            // });
 
             it('should return null when no uncle was found', function(done){
                 asyncTest(host, done, method2, ['0x2', '0xbbb'], null);

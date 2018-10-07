@@ -60,11 +60,12 @@ describe(method, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.testBlocks.blocks, function(block){
-                it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
-                    asyncTest(host, done, [Helpers.fromDecimal(block.blockHeader.number)], block.uncleHeaders.length);
-                });
-            });
+            // we don't have uncles
+            // _.each(config.testBlocks.blocks, function(block){
+            //     it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
+            //         asyncTest(host, done, [Helpers.fromDecimal(block.blockHeader.number)], block.uncleHeaders.length);
+            //     });
+            // });
 
             it('should return '+config.testBlocks.blocks[config.testBlocks.blocks.length-1].uncleHeaders.length+' as a hexstring when "latest" (block: '+config.testBlocks.blocks[config.testBlocks.blocks.length-1].blockHeader.hash+')', function(done){
                 asyncTest(host, done, ['latest'], config.testBlocks.blocks[config.testBlocks.blocks.length-1].uncleHeaders.length);

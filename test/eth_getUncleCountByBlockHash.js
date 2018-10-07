@@ -65,11 +65,12 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.testBlocks.blocks, function(block){
-                it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
-                    asyncTest(host, done, ['0x'+ block.blockHeader.hash], block.uncleHeaders.length);
-                });
-            });
+            // we don't have uncles
+            // _.each(config.testBlocks.blocks, function(block){
+            //     it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
+            //         asyncTest(host, done, ['0x'+ block.blockHeader.hash], block.uncleHeaders.length);
+            //     });
+            // });
 
 
             it('should return null if the block doesnt exist', function(done){

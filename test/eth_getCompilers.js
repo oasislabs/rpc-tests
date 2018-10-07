@@ -16,8 +16,10 @@ var asyncTest = function(host, done){
     }, function(result, status) {
         
         assert.equal(status, 200, 'has status code');
-        assert.property(result, 'result', (result.error) ? result.error.message : 'error');
-        assert.isArray(result.result, 'is array');
+        // expect error code -32070: "Method is deprecated"
+        assert.property(result, 'error');
+        assert.equal(result.error.code, -32070);
+        // assert.isArray(result.result, 'is array');
         // assert.include(result.result, "lll");
         // assert.include(result.result, "solidity");
         // assert.include(result.result, "serpent");

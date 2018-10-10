@@ -56,32 +56,22 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.testBlocks.postState, function(state, key){
-                _.each(state.storage, function(storage, index){
-                    // fix block test file
-                    index = index.replace('0x0','0x');
-                    it('should return '+ storage +' when the defaultBlock is "latest" for storage position '+ index +' at address 0x'+ key, function(done){
-                        asyncTest(host, done, [
-                            '0x'+ key,
-                            index,
-                            'latest'
-                            ], storage);
-                    });
-                });
+	    index = '0x';
+            it('should return '+ config.contractStorage +' when the defaultBlock is "latest" for storage position '+ index +' at address '+ config.contractAddress, function(done){
+                asyncTest(host, done, [
+                    config.contractAddress,
+                    index,
+                    'latest'
+                    ], config.contractStorage);
             });
 
-            _.each(config.testBlocks.pre, function(state, key){
-                _.each(state.storage, function(storage, index){
-                    // fix block test file
-                    index = index.replace('0x0','0x');
-                    it('should return '+ storage +' when the defaultBlock is 0 for storage position '+ index +' at address 0x'+ key, function(done){
-                        asyncTest(host, done, [
-                            '0x' + key,
-                            index,
-                            '0x0'
-                            ], storage);
-                    });
-                });
+            empty = '0x0000000000000000000000000000000000000000000000000000000000000000';
+            it('should return '+ empty +' when the defaultBlock is 0 for storage position '+ index +' at address '+ config.contractAddress, function(done){
+                asyncTest(host, done, [
+                    config.contractAddress,
+                    index,
+                    '0x0'
+                    ], empty);
             });
 
             it('should return an error when no parameter is passed', function(done){

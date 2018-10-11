@@ -129,7 +129,6 @@ describe(method1, function(){
 });
 
 
-/*
 var method2 = 'eth_getBlockByHash';
 describe(method2, function(){
 
@@ -137,12 +136,20 @@ describe(method2, function(){
         describe(key, function(){
 
             _.each(config.blocks, function(block){
-                it('should return a block with the proper structure, containing array of transaction objects', function(done){
-                    asyncTest(host, done, method2, ['0x'+ block.blockHeader.hash, true], block);
-                });
+                Helpers.send(host, {
+                    id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
 
-                it('should return a block with the proper structure, containing array of transaction hashes', function(done){
-                    asyncTest(host, done, method2, ['0x'+ block.blockHeader.hash, false], block);
+                    // PARAMETERS
+                    params: [block.blockHeader.number, false]
+                }, function(givenBlock){
+
+                    it('should return a block with the proper structure, containing array of transaction objects', function(done){
+                        asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, true], block);
+                    });
+
+                    it('should return a block with the proper structure, containing array of transaction hashes', function(done){
+                        asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, false], block);
+                    });
                 });
             });
 
@@ -158,4 +165,3 @@ describe(method2, function(){
         });
     });
 });
-*/

@@ -65,10 +65,10 @@ describe(method1, function(){
                     it('should return a transaction with the proper structure', function(done){
                         
                         Helpers.send(host, {
-                            id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByHash',
+                            id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
                             
                             // PARAMETERS
-                            params: ['0x'+ bl.blockHeader.hash, false]
+                            params: [bl.blockHeader.number, false]
                         }, function(givenBlock){
 
                             if(bl.reverted)
@@ -91,7 +91,6 @@ describe(method1, function(){
     });
 });
 
-
 var method2 = 'eth_getTransactionByBlockHashAndIndex';
 describe(method2, function(){
 
@@ -99,14 +98,21 @@ describe(method2, function(){
         describe(key, function(){
             _.each(config.testBlocks.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
-                    it('should return a transaction with the proper structure', function(done){
-                        asyncTest(host, done, method2, ['0x'+ bl.blockHeader.hash, Helpers.fromDecimal(index)], bl, index);
+                    Helpers.send(host, {
+                        id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
+
+                        // PARAMETERS
+                        params: [bl.blockHeader.number, false]
+                    }, function(givenBlock){
+                        it('should return a transaction with the proper structure', function(done){
+                            asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, Helpers.fromDecimal(index)], bl, index);
+                        });
+
+                        it('should return null when no transaction was found', function(done){
+                            asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, '0xb'], null);
+                        });
                     });
                 });
-            });
-
-            it('should return null when no transaction was found', function(done){
-                asyncTest(host, done, method2, ['0x'+ config.testBlocks.blocks[0].blockHeader.hash, '0xb'], null);
             });
 
             it('should return an error when no parameter is passed', function(done){
@@ -139,26 +145,7 @@ describe(method3, function(){
             });
 
             it('should return transactions for the pending block when using "pending" and sending transactions before', function(done){
-
-                // send transaction
-                Helpers.send(host, {
-                    id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_sendTransaction',
-                    
-                    // PARAMETERS
-                    params: [{
-                        "from": config.senderAddress,
-                        "to": config.contractAddress,
-                        "value" : 0
-                    }]
-
-                }, function(res){
-
-                    setTimeout(function(){
-
-                        asyncTest(host, done, method3, ['pending', '0x0'], 'pending');
-                    }, 1000);
-                });
-
+                asyncTest(host, done, method3, ['pending', '0x0'], null);
             });
 
             it('should return null when no transaction was found', function(done){

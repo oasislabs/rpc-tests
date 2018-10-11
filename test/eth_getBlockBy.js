@@ -22,10 +22,10 @@ var asyncTest = function(host, done, method, params, block){
             assert.isNull(result.result);
         else if(block === 'pending') {
 
-            assert.isNull(result.result.hash, 'block hash should be null');
-            assert.isNull(result.result.nonce, 'block nonce should be null');
-            assert.isNull(result.result.logsBloom, 'block logsBloom should be null');
-            assert.isNull(result.result.miner, 'block miner should be null');
+            //assert.isNull(result.result.hash, 'block hash should be null');
+            //assert.isNull(result.result.nonce, 'block nonce should be null');
+            //assert.isNull(result.result.logsBloom, 'block logsBloom should be null');
+            //assert.isNull(result.result.miner, 'block miner should be null');
             assert.match(result.result.parentHash, /^0x/, 'parentHash should start with 0x');
             assert.match(result.result.sha3Uncles, /^0x/, 'sha3Uncles should start with 0x');
             assert.match(result.result.stateRoot, /^0x/, 'stateRoot should start with 0x');
@@ -136,12 +136,20 @@ describe(method2, function(){
         describe(key, function(){
 
             _.each(config.testBlocks.blocks, function(block){
-                it('should return a block with the proper structure, containing array of transaction objects', function(done){
-                    asyncTest(host, done, method2, ['0x'+ block.blockHeader.hash, true], block);
-                });
+                Helpers.send(host, {
+                    id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
 
-                it('should return a block with the proper structure, containing array of transaction hashes', function(done){
-                    asyncTest(host, done, method2, ['0x'+ block.blockHeader.hash, false], block);
+                    // PARAMETERS
+                    params: [block.blockHeader.number, false]
+                }, function(givenBlock){
+
+                    it('should return a block with the proper structure, containing array of transaction objects', function(done){
+                        asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, true], block);
+                    });
+
+                    it('should return a block with the proper structure, containing array of transaction hashes', function(done){
+                        asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, false], block);
+                    });
                 });
             });
 

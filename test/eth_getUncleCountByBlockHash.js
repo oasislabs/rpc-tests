@@ -66,8 +66,15 @@ describe(method, function(){
         describe(key, function(){
 
             _.each(config.testBlocks.blocks, function(block){
-                it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
-                    asyncTest(host, done, ['0x'+ block.blockHeader.hash], block.uncleHeaders.length);
+                Helpers.send(host, {
+                    id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
+
+                    // PARAMETERS
+                    params: [block.blockHeader.number, false]
+                }, function(givenBlock){
+                    it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
+                        asyncTest(host, done, ['0x'+ givenBlock.blockHeader.hash], block.uncleHeaders.length);
+                    });
                 });
             });
 

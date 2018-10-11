@@ -15,7 +15,7 @@ var asyncTest = function(host, done){
         id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBalance',
         
         // PARAMETERS
-        params: ['0x' + config.senderAddress,'latest']
+        params: ['0x'+ config.senderAddress,'latest']
 
     },
     {

@@ -15,7 +15,7 @@ var asyncTest = function(host, done){
         id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBalance',
         
         // PARAMETERS
-        params: ['0xbcde5374fce5edbc8e2a8697c15331677e6ebf0b','latest']
+        params: ['0x' + config.senderAddress,'latest']
 
     },
     {
@@ -40,7 +40,7 @@ var asyncTest = function(host, done){
         assert.isArray(result[0].result, 'is array');
 
         // eth_getBalance
-        var balance = config.testBlocks.postState['bcde5374fce5edbc8e2a8697c15331677e6ebf0b'].balance;
+        var balance = config.testBlocks.postState[config.senderAddress].balance;
         assert.isNumber(+result[1].result, 'is a number');
         assert.equal(+result[1].result, balance, 'is the same as '+ balance);
 

@@ -65,12 +65,18 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            // we don't have uncles
-            // _.each(config.testBlocks.blocks, function(block){
-            //     it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
-            //         asyncTest(host, done, ['0x'+ block.blockHeader.hash], block.uncleHeaders.length);
-            //     });
-            // });
+            _.each(config.testBlocks.blocks, function(block){
+                Helpers.send(host, {
+                    id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
+
+                    // PARAMETERS
+                    params: [block.blockHeader.number, false]
+                }, function(givenBlock){
+                    it('should return '+block.uncleHeaders.length+' as a hexstring', function(done){
+                        asyncTest(host, done, ['0x'+ givenBlock.blockHeader.hash], block.uncleHeaders.length);
+                    });
+                });
+            });
 
 
             it('should return null if the block doesnt exist', function(done){

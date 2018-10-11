@@ -60,7 +60,7 @@ describe(method1, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.blocks, function(bl){
+            _.each(config.testBlocks.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
                     it('should return a transaction with the proper structure', function(done){
                         
@@ -96,7 +96,7 @@ describe(method2, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.blocks, function(bl){
+            _.each(config.testBlocks.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
                     Helpers.send(host, {
                         id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
@@ -128,7 +128,7 @@ describe(method3, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.blocks.filter(function (block) { return block.reverted !== true }), function(bl){
+            _.each(config.testBlocks.blocks.filter(function (block) { return block.reverted !== true }), function(bl){
                 _.each(bl.transactions, function(tx, index){
                     it('should return a transaction with the proper structure', function(done){
                         asyncTest(host, done, method3, [Helpers.fromDecimal(bl.blockHeader.number), Helpers.fromDecimal(index)], bl, index);
@@ -141,7 +141,7 @@ describe(method3, function(){
             });
 
             it('should return one transaction at 0 for the last block when using "latest"', function(done){
-                asyncTest(host, done, method3, ['latest', '0x0'], config.blocks[config.blocks.length-1], 0);
+                asyncTest(host, done, method3, ['latest', '0x0'], config.testBlocks.blocks[config.testBlocks.blocks.length-1], 0);
             });
 
             it('should return transactions for the pending block when using "pending" and sending transactions before', function(done){

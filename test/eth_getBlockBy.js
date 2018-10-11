@@ -91,7 +91,7 @@ describe(method1, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.blocks.filter(function (block) { return block.reverted !== true; }), function(block){
+            _.each(config.testBlocks.blocks.filter(function (block) { return block.reverted !== true; }), function(block){
 
                 it('should return a block with the proper structure, containing array of transaction objects', function(done){
                     asyncTest(host, done, method1, [Helpers.fromDecimal(block.blockHeader.number), true], block);
@@ -104,11 +104,11 @@ describe(method1, function(){
             });
 
             it('should return a the genisis block when using "earliest"', function(done){
-                asyncTest(host, done, method1, ['earliest', false], {blockHeader: config.genesisBlockHeader, transactions: [], uncleHeaders: []});
+                asyncTest(host, done, method1, ['earliest', false], {blockHeader: config.testBlocks.genesisBlockHeader, transactions: [], uncleHeaders: []});
             });
 
             it('should return the last block when using "latest"', function(done){
-                asyncTest(host, done, method1, ['latest', false], config.blocks[config.blocks.length-1]);
+                asyncTest(host, done, method1, ['latest', false], config.testBlocks.blocks[config.testBlocks.blocks.length-1]);
             });
 
             it('should return the pending block when using "pending"', function(done){
@@ -135,7 +135,7 @@ describe(method2, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            _.each(config.blocks, function(block){
+            _.each(config.testBlocks.blocks, function(block){
                 Helpers.send(host, {
                     id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
 

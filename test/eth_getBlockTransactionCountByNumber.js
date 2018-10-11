@@ -57,21 +57,21 @@ describe(method, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.blocks, function(block){
+            _.each(config.testBlocks.blocks, function(block){
                 it('should return '+block.transactions.length+' as a hexstring', function(done){
                     asyncTest(host, done, [Helpers.fromDecimal(block.blockHeader.number)], block.transactions.length);
                 });
             });
 
-            it('should return '+config.blocks[config.blocks.length-1].transactions.length+' as a hexstring when "latest" (block: '+config.blocks[config.blocks.length-1].blockHeader.hash+')', function(done){
-                asyncTest(host, done, ['latest'], config.blocks[config.blocks.length-1].transactions.length);
+            it('should return '+config.testBlocks.blocks[config.testBlocks.blocks.length-1].transactions.length+' as a hexstring when "latest" (block: '+config.testBlocks.blocks[config.testBlocks.blocks.length-1].blockHeader.hash+')', function(done){
+                asyncTest(host, done, ['latest'], config.testBlocks.blocks[config.testBlocks.blocks.length-1].transactions.length);
             });
 
             it('should return 0 as a hexstring when "pending"', function(done){
                 asyncTest(host, done, ['pending'], 0);
             });
 
-            it('should return 0 as a hexstring when "earliest" (block: '+config.genesisBlockHeader.hash+')', function(done){
+            it('should return 0 as a hexstring when "earliest" (block: '+config.testBlocks.genesisBlockHeader.hash+')', function(done){
                 asyncTest(host, done, ['earliest'], 0);
             });
 

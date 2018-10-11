@@ -59,7 +59,7 @@ describe(method, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.blocks, function(bl){
+            _.each(config.testBlocks.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
                     it('should return a transaction receipt with the proper structure', function(done){
                         

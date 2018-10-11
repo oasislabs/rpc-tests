@@ -59,15 +59,15 @@ describe(method, function(){
 
     Helpers.eachHost(function(key, host){
         describe(key, function(){
-            _.each(config.testBlocks.blocks, function(bl){
+            _.each(config.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
                     it('should return a transaction receipt with the proper structure', function(done){
                         
                         Helpers.send(host, {
-                            id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByHash',
+                            id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
                             
                             // PARAMETERS
-                            params: ['0x'+ bl.blockHeader.hash, false]
+                            params: [bl.blockHeader.number, false]
                         }, function(givenBlock){
 
                             if(bl.reverted)

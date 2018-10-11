@@ -91,7 +91,6 @@ describe(method1, function(){
     });
 });
 
-/*
 var method2 = 'eth_getTransactionByBlockHashAndIndex';
 describe(method2, function(){
 
@@ -99,14 +98,21 @@ describe(method2, function(){
         describe(key, function(){
             _.each(config.blocks, function(bl){
                 _.each(bl.transactions, function(tx, index){
-                    it('should return a transaction with the proper structure', function(done){
-                        asyncTest(host, done, method2, ['0x'+ bl.blockHeader.hash, Helpers.fromDecimal(index)], bl, index);
+                    Helpers.send(host, {
+                        id: config.rpcMessageId++, jsonrpc: "2.0", method: 'eth_getBlockByNumber',
+
+                        // PARAMETERS
+                        params: [bl.blockHeader.number, false]
+                    }, function(givenBlock){
+                        it('should return a transaction with the proper structure', function(done){
+                            asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, Helpers.fromDecimal(index)], bl, index);
+                        });
+
+                        it('should return null when no transaction was found', function(done){
+                            asyncTest(host, done, method2, ['0x'+ givenBlock.blockHeader.hash, '0xb'], null);
+                        });
                     });
                 });
-            });
-
-            it('should return null when no transaction was found', function(done){
-                asyncTest(host, done, method2, ['0x'+ config.blocks[0].blockHeader.hash, '0xb'], null);
             });
 
             it('should return an error when no parameter is passed', function(done){
@@ -115,7 +121,6 @@ describe(method2, function(){
         });
     });
 });
-*/
 
 
 var method3 = 'eth_getTransactionByBlockNumberAndIndex';

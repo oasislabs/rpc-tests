@@ -55,12 +55,16 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            it('should return the correct balance at defaultBlock "latest" at address '+config.senderAddress, function(done){
-                asyncTest(host, done, [config.senderAddress, 'latest'], config.senderEndBalance);
+            _.each(config.testBlocks.postState, function(state, key){
+                it('should return the correct balance at defaultBlock "latest" at address 0x'+key, function(done){
+                    asyncTest(host, done, ['0x'+ key, 'latest'], state.balance);
+                });
             });
 
-            it('should return the correct balance at defaultBlock 0 at address '+config.senderAddress, function(done){
-                asyncTest(host, done, [config.senderAddress, '0x0'], config.senderStartBalance);
+            _.each(config.testBlocks.pre, function(state, key){
+                it('should return the correct balance at defaultBlock 0 at address 0x'+key, function(done){
+                    asyncTest(host, done, ['0x'+ key, '0x0'], state.balance);
+                });
             });
 
             it('should return an error when no parameter is passed', function(done){

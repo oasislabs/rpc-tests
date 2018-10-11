@@ -54,11 +54,11 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
             it('should return the current number of transactions as a hexstring when the defaultBlock is 0', function(done){
-                asyncTest(host, done, [config.senderAddress, '0x0'], 0);
+                asyncTest(host, done, ['0x' + config.senderAddress, '0x0'], +config.testBlocks.pre[config.senderAddress].nonce);
             });
 
             it('should return the current number of transactions as a hexstring when the defaultBlock is "latest"', function(done){
-                asyncTest(host, done, [config.senderAddress, 'latest'], config.testBlocks.blocks.length);
+                asyncTest(host, done, ['0x' + config.senderAddress, 'latest'], +config.testBlocks.postState[config.senderAddress].nonce);
             });
 
             it('should return an error when no parameter is passed', function(done){

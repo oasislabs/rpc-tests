@@ -54,12 +54,24 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
-            it('should return the code when defaultBlock is "latest" at '+ config.contractAddress, function(done){
-                asyncTest(host, done, [config.contractAddress, 'latest'], config.contractCode);
+            _.each(config.testBlocks.postState, function(state, key){
+                it('should return the code when defaultBlock is "latest" at 0x'+ key, function(done){
+                    asyncTest(host, done, ['0x'+ key, 'latest'], state.code);
+                });
             });
 
-            it('should return nothing as there is no code at block 0', function(done){
-                asyncTest(host, done, [config.contractAddress, '0x0'], '0x');
+            _.each(config.testBlocks.pre, function(state, key){
+                it('should return code as when defaultBlock is 0 at 0x'+ key, function(done){
+                    asyncTest(host, done, ['0x'+ key, '0x0'], state.code);
+                });
+            });
+
+            _.each(config.testBlocks.pre, function(state, key){
+                if(state.code === '0x') {
+                    it('should return nothing as there is no code at block 0', function(done){
+                        asyncTest(host, done, ['0x'+ key, '0x0'], '0x');
+                    });
+                }
             });
 
             it('should return an error when no parameter is passed', function(done){

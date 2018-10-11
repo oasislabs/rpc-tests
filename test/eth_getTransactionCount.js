@@ -58,7 +58,7 @@ describe(method, function(){
             });
 
             it('should return the current number of transactions as a hexstring when the defaultBlock is "latest"', function(done){
-                asyncTest(host, done, [config.senderAddress, 'latest'], 1);
+                asyncTest(host, done, [config.senderAddress, 'latest'], config.testBlocks.blocks.length);
             });
 
             it('should return an error when no parameter is passed', function(done){

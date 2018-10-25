@@ -55,11 +55,14 @@ describe(method, function(){
     Helpers.eachHost(function(key, host){
         describe(key, function(){
 
+            // don't check post state balance, as this will change with gas model
+            /*
             _.each(config.testBlocks.postState, function(state, key){
                 it('should return the correct balance at defaultBlock "latest" at address 0x'+key, function(done){
                     asyncTest(host, done, ['0x'+ key, 'latest'], state.balance);
                 });
             });
+	    */
 
             _.each(config.testBlocks.pre, function(state, key){
                 it('should return the correct balance at defaultBlock 0 at address 0x'+key, function(done){

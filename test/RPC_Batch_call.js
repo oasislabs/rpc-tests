@@ -39,10 +39,13 @@ var asyncTest = function(host, done){
         // eth_accounts
         assert.isArray(result[0].result, 'is array');
 
+        // don't check post state balance, as this will change with gas model
         // eth_getBalance
+        /*
         var balance = config.testBlocks.postState[config.senderAddress].balance;
         assert.isNumber(+result[1].result, 'is a number');
         assert.equal(+result[1].result, balance, 'is the same as '+ balance);
+        */
 
         // net_listening
         assert.isBoolean(result[2].result, 'is boolean');

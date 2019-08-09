@@ -10,7 +10,7 @@
                 "mixHash" : "0000000000000000000000000000000000000000000000000000000000000000",
                 "nonce" : "0000000000000000",
                 "number" : "0x2",
-                "uncleHash" : "0000000000000000000000000000000000000000000000000000000000000000"
+                "uncleHash" : "1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
             },
             "blocknumber" : "2",
             "transactions" : [
@@ -45,7 +45,7 @@
             "stateRoot" : "ef7521c82ce7009dd356ca1e764d11a9ed5304c07d174e9f404925cd61ca2cf3",
             "timestamp" : "0x0",
             "transactionsTrie" : "56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-            "uncleHash" : "0000000000000000000000000000000000000000000000000000000000000000"
+            "uncleHash" : "1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
         },
         "postState" : {
             "f75d55dd51ee8756fbdb499cc1a963e702a52091" : {

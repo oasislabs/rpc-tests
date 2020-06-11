@@ -5,17 +5,16 @@
   "author": "Fabian Vogelsteller <fabian@frozeman.de>",
   "main": "index",
   "engines": {
-    "node": ">= 0.4.x < 0.8.0"
+    "node": ">= 12.x.x"
   },
   "scripts": {
     "test": "make test"
   },
-  "dependencies": {},
   "devDependencies": {
     "bignumber.js": "^2.0.3",
-    "chai": "*",
-    "mocha": ">= 0.11.0",
-    "underscore": "*",
-    "xmlhttprequest": "*"
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "underscore": "^1.10.2",
+    "xmlhttprequest": "^1.8.0"
   }
 }

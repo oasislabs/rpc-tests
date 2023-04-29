@@ -13,7 +13,7 @@
   "devDependencies": {
     "bignumber.js": "^2.0.3",
     "chai": "^4.2.0",
-    "mocha": "^8.0.1",
+    "mocha": "^10.2.0",
     "underscore": "^1.10.2",
     "xmlhttprequest": "^1.8.0"
   }
